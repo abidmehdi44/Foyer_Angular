@@ -14,11 +14,6 @@
                                 <label for="nomFoyer" class="form-label">Nom du foyer</label>
                                 <input type="text" id="nomFoyer" name="nomFoyer" [(ngModel)]="foyer.nomFoyer" required class="form-control">
                             </div>
-
-                            <div class="mb-3">
-                                <label for="capaciteFoyer" class="form-label">Capacité du foyer</label>
-                                <input type="number" id="capaciteFoyer" name="capaciteFoyer" [(ngModel)]="foyer.capaciteFoyer" required class="form-control">
-                            </div>
                             
                             <div class="mb-3">
                                 <label for="descriptionFoyer" class="form-label">Description du Foyer</label>
@@ -26,8 +21,15 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="capaciteFoyer" class="form-label">Capacité du foyer</label>
+                                <input type="number" id="capaciteFoyer" name="capaciteFoyer" [(ngModel)]="foyer.capaciteFoyer" required class="form-control">
+                                <div *ngIf="!isCapaciteValid" class="text-danger">La capacité du foyer doit être un nombre positif.</div>
+                            </div>
+                            
+                            <div class="mb-3">
                                 <label for="telephoneFoyer" class="form-label">Telephone du Foyer</label>
                                 <input type="tel" id="telephoneFoyer" name="telephoneFoyer" [(ngModel)]="foyer.telephoneFoyer" required class="form-control">
+                                <div *ngIf="!isTelephoneValid" class="text-danger">Le numéro de téléphone doit contenir 8 chiffres.</div>
                             </div>
 
                             <div class="mb-3">
@@ -42,6 +44,7 @@
                                 </div>
                             </div>
 
+                            <br>
                             <br>
                             <button type="submit" class="btn btn-primary">Mettre à jour</button>
                         </form>

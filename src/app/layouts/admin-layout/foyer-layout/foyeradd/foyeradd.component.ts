@@ -13,6 +13,9 @@ export class FoyerAddComponent implements OnInit {
     idFoyer: 0, // Initialize with a default value or use the appropriate initial value
     nomFoyer: '',
     capaciteFoyer: 0,
+    descriptionFoyer: '',
+    telephoneFoyer: 0,
+    typeF: '',
     universite:'',
   };
 

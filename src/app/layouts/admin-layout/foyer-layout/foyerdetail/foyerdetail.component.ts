@@ -15,6 +15,11 @@ export class FoyerdetailComponent implements OnInit {
   sortKey: string = 'capaciteFoyer';
   sortReverse: boolean = false;
 
+  total: number = 0;
+  average: number = 0;
+  p: number = 1;
+  itemsPerPage: number = 2;
+
   ngOnInit(): void {
     this.loadFoyer();
   }
@@ -23,6 +28,7 @@ export class FoyerdetailComponent implements OnInit {
     this.foyerservices.getAllFoyer().subscribe((data) => {
       this.foyer = data;
       console.log(data);
+      this.updateStatistics();
     });
   }
 
@@ -30,12 +36,10 @@ export class FoyerdetailComponent implements OnInit {
     this.foyerservices.deleteFoyer(id).subscribe(
       () => {
         console.log('Foyer deleted successfully.');
-        // Optionally, reload the foyers after deletion
         this.loadFoyer();
       },
       (error) => {
         console.error('Error deleting foyer:', error);
-        // Handle errors here
       }
     );
   }
@@ -59,5 +63,17 @@ export class FoyerdetailComponent implements OnInit {
         const y = b[this.sortKey];
         return this.sortReverse ? y - x : x - y;
       });
+  }
+
+  updateStatistics() {
+    this.total = this.foyer.length;
+
+    const totalCapacity = this.foyer.reduce(
+      (sum, foyer) => sum + foyer.capaciteFoyer,
+      0
+    );
+
+    this.average =
+      this.total > 0 ? totalCapacity / this.total : 0;
   }
 }

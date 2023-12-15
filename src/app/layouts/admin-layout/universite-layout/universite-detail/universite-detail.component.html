@@ -1,0 +1,78 @@
+<!-- universite-detail.component.html -->
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header" routerLinkActive="active">
+                        <h4 class="title">Liste des Universités </h4>
+                        <a routerLink="/universite/add">
+                            <h4>
+                                <i class="pe-7s-home"></i>
+                                Ajouter une nouvelle université
+                            </h4>
+                        </a>
+                        <app-universitedetail-view [totalUniversites]=universites.length> </app-universitedetail-view>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Rechercher une université..."
+                                    [(ngModel)]="searchTerm" (input)="onSearchTermChange()" />
+                            </div>
+                        </div>
+                        <table class="table table-hover table-striped"
+                            *ngIf="filteredUniversites && filteredUniversites.length > 0">
+                            <thead>
+                                <tr>
+                                    <th (click)="sort('nomUniversite')">Nom de l'université</th>
+                                    <th (click)="sort('adresse')">Adresse</th>
+                                    <th (click)="sort('ville')">Ville</th>
+                                    <th (click)="sort('telephone')">Téléphone</th>
+                                    <th>Affecter à un foyer</th>
+                                    <th>Désaffecter d'un foyer</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let universite of filteredUniversites | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                                    <td>{{ universite?.nomUniversite }}</td>
+                                    <td>{{ universite?.adresse }}</td>
+                                    <td>{{ universite?.ville }}</td>
+                                    <td>{{ universite?.telephone }}</td>
+                                    <td> <button type="button"
+                                            [routerLink]="['/admin/universitedetail/affecterFoyer', universite.idUniversite, universite.nomUniversite]"
+                                            class="btn btn-primary">Affecter à un foyer</button>
+                                    </td>
+                                    <td> <button type="button" (click)="desaffecterFoyer(universite.idUniversite)"
+                                            class="btn btn-warning">Désaffecter d'un foyer</button>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="submit" class="btn btn-success"
+                                                [routerLink]="'/admin/universite/update/' + universite.idUniversite">Modifier</button>
+                                            <button type="submit" (click)="DeleteUniversite(universite)"
+                                                class="btn btn-danger">Supprimer</button>
+                                            <!-- Bouton d'affectation à un foyer -->
+                                            <button type="button"
+                                                [routerLink]="['/admin/universitedetail/affecterFoyer', universite.idUniversite, universite.nomUniversite]"
+                                                class="btn btn-primary">Affecter à un foyer</button>
+                                            <!-- Bouton de désaffectation d'un foyer -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="filteredUniversites && filteredUniversites.length === 0" class="text-center mt-3">
+                            Aucune université disponible.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;justify-content: center; align-items: center;">
+            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+        </div>
+    </div>
+</div>

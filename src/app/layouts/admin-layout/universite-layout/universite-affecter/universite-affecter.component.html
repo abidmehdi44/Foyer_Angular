@@ -1,0 +1,15 @@
+<div class="main-content">
+    <div class="card ml-3">
+        <div class="card-body">
+            <div *ngFor="let foyer of availableFoyers" class="mb-4">
+                <h5 class="card-title font-weight-bold">{{ foyer.nomFoyer }}</h5>
+                <p class="card-text mb-2"><strong>Capacité:</strong> {{ foyer.capaciteFoyer }}</p>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" (click)="affecterFoyer(foyer.idFoyer)">Affecter à cette université</button>
+                    <button type="button" class="btn btn-secondary" (click)="goBack()">Retour à la liste des universités</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

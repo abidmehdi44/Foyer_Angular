@@ -18,7 +18,7 @@ export class FoyerupdateComponent implements OnInit {
   constructor(private foyerService: FoyerService, private router: Router, private route: ActivatedRoute) {}
 
   onSubmit() {
-    // Validate inputs before submitting
+   
     this.isCapaciteValid = this.validatePositiveNumber(this.foyer.capaciteFoyer);
     this.isTelephoneValid = this.validateTelephone(this.foyer.telephoneFoyer);
 
@@ -48,8 +48,11 @@ export class FoyerupdateComponent implements OnInit {
   }
 
   validateTelephone(value: number): boolean {
-    // Check if the length is 8 (you might want to add more specific validation)
     return value != null && value.toString().length === 8;
+  }
+
+  goBack(): void {
+    this.router.navigate(['/admin/foyerdetail']);
   }
 
   ngOnInit(): void {

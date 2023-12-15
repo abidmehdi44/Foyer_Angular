@@ -1,0 +1,85 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Modifier une chambre</h4>
+                    </div>
+                    <div class="content">
+                        <form #f="ngForm" [formGroup]="chambreForm" (ngSubmit)="submit(f)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Numéro de chambre</label>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                [(ngModel)]="chambre.numeroChambre"
+                                                [formControlName]="'numeroChambre'"
+                                                placeholder="Numéro de chambre"
+                                                required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Type de chambre</label>
+                                        <select
+                                                class="form-control"
+                                                [(ngModel)]="chambre.typeC"
+                                                [formControlName]="'typeC'"
+                                                required
+                                        >
+                                            <option value="SIMPLE">Simple</option>
+                                            <option value="DOUBLE">Double</option>
+                                            <option value="TRIPLE">Triple</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Bloc</label>
+                                        <select
+                                                class="form-control"
+                                                [(ngModel)]="selectedBloc"
+                                                [formControlName]="'selectedBloc'"
+                                                required
+                                        >
+                                            <option
+                                                    *ngFor="let bloc of blocs"
+                                                    [value]="bloc.idBloc"
+                                            >
+                                                {{ bloc.nomBloc }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image</label>
+                                        <input type="file" class="form-control" (change)="onImageSelected($event)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Autres champs de formulaire si nécessaire -->
+                            <button
+                                    type="submit"
+                                    class="btn btn-info btn-fill pull-right"
+                            >
+                                Modifier
+                            </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Ajouter une chambre</h4>
+                    </div>
+                    <div class="content">
+                        <form #f="ngForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Numéro de chambre</label>
+                                        <input type="number" class="form-control" [(ngModel)]="chambre.numeroChambre" name="numeroChambre" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Type de chambre</label>
+                                        <select class="form-control" [(ngModel)]="chambre.typeC" name="typeC" required>
+                                            <option value="SIMPLE">Simple</option>
+                                            <option value="DOUBLE">Double</option>
+                                            <option value="TRIPLE">Triple</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Sélectionner un Bloc</label>
+                                        <select class="form-control" [(ngModel)]="selectedBloc" name="selectedBloc" required>
+                                            <option value="" disabled selected>Choisissez un Bloc</option>
+                                            <option *ngFor="let bloc of blocs" [value]="bloc.idBloc">{{ bloc.nomBloc }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image</label>
+                                        <input type="file" class="form-control" (change)="onFileSelected($event)" name="image" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Autres champs de formulaire si nécessaire -->
+                            <button type="submit" class="btn btn-primary btn-fill pull-right">Ajouter</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

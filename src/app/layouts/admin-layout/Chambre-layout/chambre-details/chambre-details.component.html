@@ -1,0 +1,59 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header" routerLinkActive="active">
+                        <h4 class="title">Les chambres</h4>
+                        <a routerLink="/admin/chambre/add">
+                            <h4>
+                                <i class="pe-7s-add-user"></i>
+                                Ajouter une nouvelle chambre
+                            </h4>
+                        </a> <div class="search-bar">
+                        <input type="text" placeholder="Rechercher par bloc" [(ngModel)]="searchValue" (input)="searchChambres()" />
+                        <button type="button" (click)="searchChambres()">Rechercher</button>
+                    </div>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Numéro de chambre</th>
+                                <th>Type de chambre</th>
+                                <th>NomBloc</th>
+                                <th>Foyer</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let chambre of chambres | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                            <tr>
+
+
+                                <td>{{ chambre.numeroChambre }}</td>
+                                <td>{{ chambre.typeC }}</td>
+                                <td>{{ chambre.bloc?.nomBloc }}</td>
+                                <td>{{ chambre.bloc?.foyer?.nomFoyer }}</td>
+                                <td class="border-bottom-0">
+                                    <img style="width: 100px; height: 100px;" [src]="'data:' + chambre.image?.image_type + ';base64,' + chambre.imagebyte" alt="Chambre Image">
+                                </td>
+
+                                <td>
+                                    <div class="center">
+                                        <button type="submit" class="btn btn-success" (click)="goToUpdateChambre(chambre.idChambre)">Modifier</button>
+                                        <button type="submit" (click)=" deleteChambre(chambre.idChambre)" class="btn btn-danger">Supprimer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;justify-content: center; align-items: center;">
+            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+        </div>
+    </div>
+</div>

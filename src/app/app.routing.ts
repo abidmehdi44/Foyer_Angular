@@ -12,7 +12,6 @@ const routes: Routes =[
     redirectTo: 'dashboard',
     pathMatch: 'full',
   }, 
-    // hetha fl router barani w children fl routing dakhleni () lkol ywaliw star hetha !!)
       { path: 'admin', loadChildren:()=>import('./layouts/admin-layout/admin-layout.module').then(x => x.AdminLayoutModule) },
   {
     path: 'etudiant',

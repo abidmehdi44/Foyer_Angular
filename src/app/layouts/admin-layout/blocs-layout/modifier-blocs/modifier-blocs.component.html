@@ -1,0 +1,27 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Modifier un bloc</h4>
+          </div>
+          <div class="content">
+            <form #f="ngForm" (ngSubmit)="updateBloc()">
+              <div class="form-group">
+                <label>Nom du Bloc</label>
+                <input type="text" class="form-control" [(ngModel)]="bloc.nomBloc" name="nomBloc">
+              </div>
+              <div class="form-group">
+                <label>Capacité</label>
+                <input type="number" class="form-control" [(ngModel)]="bloc.capaciteBloc" name="capaciteBloc">
+              </div>
+              <button type="submit" class="btn btn-primary">Modifier</button>
+              <button type="button" class="btn btn-primary" (click)="goBack()">Retour à la liste des blocs</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

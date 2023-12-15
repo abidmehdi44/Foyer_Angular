@@ -2,6 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Foyer } from '../../../../models/foyer';
 import { FoyerService } from '../../../../services/foyer-service.service';
 import { Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+
+function phoneNumberValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const phoneNumber = control.value;
+    const isValid = /^\d{8}$/.test(phoneNumber);
+    return isValid ? null : { 'invalidPhoneNumber': { value: control.value } };
+  };
+}
+
+function positiveNumberValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const value = control.value;
+    const isValid = value !== null && !isNaN(value) && value >= 0;
+    return isValid ? null : { 'invalidPositiveNumber': { value: control.value } };
+  };
+}
 
 @Component({
   selector: 'app-foyer-add',
@@ -9,32 +26,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./foyeradd.component.scss']
 })
 export class FoyerAddComponent implements OnInit {
-  foyer: Foyer = {
-    idFoyer: 0,
-    nomFoyer: '',
-    capaciteFoyer: 0,
-    descriptionFoyer: '',
-    telephoneFoyer: null, // Use null for better validation
-    typeF: '',
-    universite:'',
-  };
+  foyerForm: FormGroup;
 
-  // Add validation flags
-  isCapaciteValid: boolean = true;
-  isTelephoneValid: boolean = true;
-
-  constructor(private foyerService: FoyerService, private router: Router) {}
+  constructor(private fb: FormBuilder, private foyerService: FoyerService, private router: Router) {
+    this.foyerForm = this.fb.group({
+      nomFoyer: ['', Validators.required],
+      capaciteFoyer: [0, [Validators.required, positiveNumberValidator()]],
+      descriptionFoyer: ['', Validators.required],
+      telephoneFoyer: [null, [Validators.required, phoneNumberValidator()]],
+      typeF: ['', Validators.required],
+      universite: null,
+    });
+  }
 
   onSubmit() {
-    // Validate inputs before submitting
-    this.isCapaciteValid = this.validatePositiveNumber(this.foyer.capaciteFoyer);
-    this.isTelephoneValid = this.validateTelephone(this.foyer.telephoneFoyer);
-
-    if (this.isCapaciteValid && this.isTelephoneValid) {
-      this.foyerService.addFoyer(this.foyer).subscribe(
+    if (this.foyerForm.valid) {
+      this.foyerService.addFoyer(this.foyerForm.value).subscribe(
         (result) => {
           console.log('Foyer ajouté avec succès:', result);
-          this.router.navigate(['/admin/foyerdetail']);
+          this.router.navigate(['/admin/foyerdetail']); 
         },
         (error) => {
           console.error('Erreur lors de l\'ajout du foyer:', error);
@@ -43,13 +53,8 @@ export class FoyerAddComponent implements OnInit {
     }
   }
 
-  validatePositiveNumber(value: number): boolean {
-    return value >= 0;
-  }
-
-  validateTelephone(value: number): boolean {
-    // Check if the length is 8 (you might want to add more specific validation)
-    return value != null && value.toString().length === 8;
+  goBack(): void {
+    this.router.navigate(['/admin/foyerdetail']);
   }
 
   ngOnInit(): void {}

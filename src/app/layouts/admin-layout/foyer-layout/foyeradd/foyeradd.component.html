@@ -1,52 +1,59 @@
 <div class="main-content">
-    <div class="card">
-        <div class="container">
-            
-            <div class="row">
-                <div class="col-md-8 offset-md-2 mt-4 mb-4">
-                    <div class="card-header">
-                        <h2 class="mt-3">Ajouter un foyer</h2>
-                    </div>
+  <div class="card">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2 mt-4 mb-4">
+          <div class="card-header">
+            <h2 class="mt-3">Ajouter un foyer</h2>
+          </div>
 
-                    <div class="card-body">
-                        <form (ngSubmit)="onSubmit()" class="mt-4">
-                            <div class="mb-3">
-                                <label for="nomFoyer" class="form-label">Nom du foyer</label>
-                                <input type="text" id="nomFoyer" name="nomFoyer" [(ngModel)]="foyer.nomFoyer" required class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="descriptionFoyer" class="form-label">Description du Foyer</label>
-                                <textarea id="descriptionFoyer" name="descriptionFoyer" [(ngModel)]="foyer.descriptionFoyer" required class="form-control" rows="3"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="capaciteFoyer" class="form-label">Capacité du foyer</label>
-                                <input type="number" id="capaciteFoyer" name="capaciteFoyer" [(ngModel)]="foyer.capaciteFoyer" required class="form-control">
-                                <div *ngIf="!isCapaciteValid" class="text-danger">La capacité du foyer doit être un nombre positif.</div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="telephoneFoyer" class="form-label">Telephone du Foyer</label>
-                                <input type="tel" id="telephoneFoyer" name="telephoneFoyer" [(ngModel)]="foyer.telephoneFoyer" required class="form-control">
-                                <div *ngIf="!isTelephoneValid" class="text-danger">Le numéro de téléphone doit contenir 8 chiffres.</div>
-                            </div>
+          <div class="card-body">
+            <form [formGroup]="foyerForm" (ngSubmit)="onSubmit()" class="mt-4">
+              <div class="mb-3">
+                <label for="nomFoyer" class="form-label">Nom du foyer</label>
+                <input formControlName="nomFoyer" id="nomFoyer" class="form-control" />
+              </div>
 
-                            <div class="mb-3">
-                                <label for="typeFoyer" class="form-label">Type du Foyer</label>
-                                <div class="form-check">
-                                    <input type="radio" id="homme" name="typeFoyer" value="Homme" [(ngModel)]="foyer.typeF" class="form-check-input">
-                                    <label for="homme" class="form-check-label">Homme</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" id="femme" name="typeFoyer" value="Femme" [(ngModel)]="foyer.typeF" class="form-check-input">
-                                    <label for="femme" class="form-check-label">Femme</label>
-                                </div>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary">Ajouter</button>
-                        </form>
-                    </div>
+              <div class="mb-3">
+                <label for="descriptionFoyer" class="form-label">Description du Foyer</label>
+                <textarea formControlName="descriptionFoyer" id="descriptionFoyer" class="form-control" rows="3"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="capaciteFoyer" class="form-label">Capacité du foyer</label>
+                <input formControlName="capaciteFoyer" id="capaciteFoyer" type="number" class="form-control" />
+                <div *ngIf="!foyerForm.controls.capaciteFoyer.valid && foyerForm.controls.capaciteFoyer.touched" class="text-danger">
+                  La capacité du foyer doit être un nombre positif.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="telephoneFoyer" class="form-label">Telephone du Foyer</label>
+                <input formControlName="telephoneFoyer" id="telephoneFoyer" type="tel" class="form-control" />
+                <div *ngIf="!foyerForm.controls.telephoneFoyer.valid && foyerForm.controls.telephoneFoyer.touched" class="text-danger">
+                  Le numéro de téléphone doit contenir 8 chiffres.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="typeFoyer" class="form-label">Type du Foyer</label>
+                <div class="form-check">
+                    <input formControlName="typeF" type="radio" id="homme" value="Homme" class="form-check-input" />
+                    <label for="homme" class="form-check-label">Homme</label>
+                </div>
+                <div class="form-check" style="margin-top: 8px;">
+                    <input formControlName="typeF" type="radio" id="femme" value="Femme" class="form-check-input" />
+                    <label for="femme" class="form-check-label">Femme</label>
                 </div>
             </div>
+              <button type="submit" class="btn btn-primary">Ajouter</button>
+              <button type="button" class="btn btn-primary" (click)="goBack()">
+                Retour 
+              </button>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

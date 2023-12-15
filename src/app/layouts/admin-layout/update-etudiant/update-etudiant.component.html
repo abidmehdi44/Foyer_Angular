@@ -1,0 +1,71 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Modifier un etudiant</h4>
+                    </div>
+                    <div class="content">
+                        <form #f="ngForm" [formGroup]="EtudiantForm" (ngSubmit)="submit(f)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" [ngClass]="{'has-error': EtudiantForm.get('nomEt').invalid && EtudiantForm.get('nomEt').touched}">
+                                        <label>nom </label>
+                                        <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="etudiant.nomEt" [formControlName]="'nomEt'" formControlName="'nomEt'" >
+                                        <div *ngIf="EtudiantForm.get('nomEt').hasError('required') && EtudiantForm.get('nomEt').touched" class="help-block">Nom is required.</div>
+                                        <div *ngIf="EtudiantForm.get('nomEt').hasError('minlength') && EtudiantForm.get('nomEt').touched" class="help-block">Nom should have a minimum length of 3 characters.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" [ngClass]="{'has-error': EtudiantForm.get('prenomEt').invalid && EtudiantForm.get('prenomEt').touched}">
+                                        <label>prenom</label>
+                                        <input type="text" class="form-control"  placeholder="prenom" [(ngModel)]="etudiant.prenomEt" [formControlName]="'prenomEt'" formControlName="'prenomEt'" >
+                                        <div *ngIf="EtudiantForm.get('prenomEt').hasError('required') && EtudiantForm.get('prenomEt').touched" class="help-block">Prénom is required.</div>
+                                        <div *ngIf="EtudiantForm.get('prenomEt').hasError('minlength') && EtudiantForm.get('prenomEt').touched" class="help-block">Prenom should have a minimum length of 3 characters.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" [ngClass]="{'has-error': EtudiantForm.get('cin').invalid && EtudiantForm.get('cin').touched}">
+                                        <label>cin</label>
+                                        <input type="number" class="form-control"  placeholder="cin" [(ngModel)]="etudiant.cin" formControlName="'cin'" [formControlName]="'cin'" formControlName="'cin'" >
+                                        <div *ngIf="EtudiantForm.get('cin').hasError('required') && EtudiantForm.get('cin').touched" class="help-block">CIN is required.</div>
+                                        <div *ngIf="EtudiantForm.get('cin').hasError('pattern') && EtudiantForm.get('cin').touched" class="help-block">CIN must be exactly 8 digits.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" [ngClass]="{'has-error': EtudiantForm.get('dateNaissance').invalid && EtudiantForm.get('dateNaissance').touched}">
+                                        <label>date de naissance</label>
+                                        <input type="date" class="form-control"  placeholder="date de naissance"[(ngModel)]="etudiant.dateNaissance" [formControlName]="'dateNaissance'" formControlName="'dateNaissance'" >
+                                        <div *ngIf="EtudiantForm.get('dateNaissance').hasError('required') && EtudiantForm.get('dateNaissance').touched" class="help-block">Date de naissance is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" [ngClass]="{'has-error': EtudiantForm.get('universite').invalid && EtudiantForm.get('universite').touched}">
+                                        <label for="universite">Université</label>
+                                        <select class="form-control" id="universite" name="universite" formControlName="universite" [(ngModel)]="etudiant.universite">
+                                            <option *ngFor="let universite of universites" [ngValue]="universite " >{{ universite.nomUniversite }}</option>
+                                        </select>
+                                        <div *ngIf="EtudiantForm.get('universite').hasError('required') && EtudiantForm.get('universite').touched" class="help-block">Université is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Modifier</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

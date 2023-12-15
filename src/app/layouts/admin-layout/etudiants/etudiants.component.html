@@ -1,0 +1,58 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header" routerLinkActive="active">
+
+                        <h4 class="title">Liste Des Etudiants: {{etudiants.length}}</h4>
+                        <div class="form-group">
+                          </div>
+                        <a routerLink="/admin/addEtudiant">
+                            <h4>
+                                <i class="pe-7s-add-user"></i>
+                                Ajouter un nouveau etudiant
+
+                            </h4>
+                        </a>
+
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th> Nom</th>
+                                <th> Prenom</th>
+                                <th> CIN</th>
+                                <th> Date de naissance</th>
+                                <th> Universite</th>
+                                <th> Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor=" let e of etudiants | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                            <tr>
+                                <td>{{e.nomEt}} </td>
+                                <td>{{e.prenomEt}} </td>
+                                <td> {{e.cin}}</td>
+                                <td> {{e.dateNaissance |date}}</td>
+                                <td> {{e.universite.nomUniversite}}</td>
+                                <td>
+                                    <div class="center" style="">
+                                        <button type="submit" class="btn btn-success "  [routerLink]="'/admin/updateEtudiant/'+ e.idEtudiant">Modifier</button>
+                                        <button type="submit"  (click)="DeleteEtudiant(e)"class="btn btn-danger ">Supprimer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;justify-content: center; align-items: center;">
+            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+        </div>
+
+    </div>
+</div>

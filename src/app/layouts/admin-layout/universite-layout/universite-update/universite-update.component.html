@@ -1,0 +1,44 @@
+<div class="main-content">
+    <div class="card">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-1 mt-4 mb-4">
+                    <h2 class="mt-3">Modifier une université</h2>
+
+                    <form formGroup="universiteForm" (ngSubmit)="onSubmit()" class="mt-4">
+                        <div class="mb-3">
+                            <label for="nomUniversite" class="form-label">Nom de l'université</label>
+                            <input type="text" id="nomUniversite" formControlName="nomUniversite" class="form-control">
+                            <div *ngIf="universiteForm.get('nomUniversite').hasError('required') && (universiteForm.get('nomUniversite').touched || submitted)" class="text-danger">
+                                Veuillez saisir le nom de l'université.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="adresse" class="form-label">Adresse</label>
+                            <input type="text" id="adresse" formControlName="adresse" class="form-control">
+                            <div *ngIf="universiteForm.get('adresse').hasError('required') && (universiteForm.get('adresse').touched || submitted)" class="text-danger">
+                                Veuillez saisir l'adresse.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ville" class="form-label">Ville</label>
+                            <input type="text" id="ville" formControlName="ville" class="form-control">
+                            <div *ngIf="universiteForm.get('ville').hasError('required') && (universiteForm.get('ville').touched || submitted)" class="text-danger">
+                                Veuillez saisir la ville.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telephone" class="form-label">Téléphone</label>
+                            <input type="number" id="telephone" formControlName="telephone" class="form-control">
+                            <div *ngIf="(universiteForm.get('telephone').hasError('required') || universiteForm.get('telephone').hasError('invalidPhoneNumber')) && (universiteForm.get('telephone').touched || submitted)" class="text-danger">
+                                {{ universiteForm.get('telephone').hasError('required') ? 'Veuillez saisir le numéro de téléphone.' : 'Le numéro de téléphone doit contenir 8 chiffres.' }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

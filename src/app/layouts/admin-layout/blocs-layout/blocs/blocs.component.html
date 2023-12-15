@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Rechercher un bloc..." [(ngModel)]="searchTerm" (input)="onSearchTermChange()" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header" routerLinkActive="active">
+            <h4 class="title">Les blocs</h4>
+            <a routerLink="/blocs/ajouter">
+              <h4><i class="pe-7s-add-user"></i> Ajouter un nouveau bloc</h4>
+            </a>
+            
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped" *ngIf="filteredBlocs && filteredBlocs.length > 0">
+              <thead>
+                <tr>
+                  <th (click)="sort('nomBloc')">Nom du Bloc</th>
+                  <th (click)="sort('capaciteBloc')">Capacité</th>
+                  <th (click)="sort('nomBloc')">Nom du Foyer</th>
+                  <th>Actions</th>
+                  <th>Affecter à un foyer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bloc of filteredBlocs | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                  <td>{{ bloc?.nomBloc }}</td>
+                  <td>{{ bloc?.capaciteBloc }}</td>
+                  <td>{{ bloc?.foyer?.nomFoyer }}</td>
+                  <td>
+                    <div class="center">
+                      <button type="button" class="btn btn-success" (click)="updateBloc(bloc.idBloc)">Modifier</button>
+                      <button type="button" class="btn btn-danger" (click)="deleteBloc(bloc.idBloc)">Supprimer</button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="center">
+                      <button type="button" class="btn btn-primary" (click)="affecterAFoyer(bloc.idBloc)">Affecter à un foyer</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="display: flex;justify-content: center; align-items: center;">
+              <pagination-controls (pageChange)="p=$event"></pagination-controls>
+          </div>
+            <div *ngIf="filteredBlocs && filteredBlocs.length === 0">Aucun bloc disponible.</div>
+          </div>
+          <app-statistics [blocsData]= "blocsData"></app-statistics>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+

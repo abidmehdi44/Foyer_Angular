@@ -16,7 +16,7 @@
     reverse: boolean = false; 
     blocsData: any = { labels: [], capacities: [], affectedCount: 0, unaffectedCount: 0 };
     p: number = 1;
-    itemsPerPage: number =1;
+    itemsPerPage: number =3;
 
     constructor(private router: Router, private blocService: BlocService, private cdRef: ChangeDetectorRef) {}
 
